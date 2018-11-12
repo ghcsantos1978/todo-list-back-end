@@ -1,6 +1,9 @@
 package br.sonda.todolist.controller;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -44,10 +47,16 @@ public class ToDoListController {
 	
 	@RequestMapping(value = "/inserir",headers = {"content-type=application/json"},consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
-	public ToDo gravar(HttpServletResponse response,@Valid @RequestBody ToDo toDo) {
+	public Map<String,String> gravar(HttpServletResponse response,@Valid @RequestBody ToDo toDo) {
 		try {
-			ToDo retorno = service.gravar(toDo);
-			response.setStatus(HttpServletResponse.SC_CREATED);
+			Map<String,String> retorno = new HashMap<String,String>();
+			ToDo todo = service.gravar(toDo);
+			if (todo!=null && todo.getId()!=null) {
+				retorno = Collections.singletonMap("retorno", "TRUE"); 
+			}
+			else {
+				retorno = Collections.singletonMap("retorno", "FALSE"); 
+			}
 			return retorno;
 		} catch (ToDoException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
