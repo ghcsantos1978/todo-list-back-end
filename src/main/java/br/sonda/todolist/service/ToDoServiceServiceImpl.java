@@ -29,13 +29,14 @@ public class ToDoServiceServiceImpl implements ToDoService {
 	@Override
 	public void remover(ToDo toDo) throws ToDoException {
 		repository.delete(toDo);
-		
 	}
 
 	@Override
 	public List<ToDo> listarTodos() throws ToDoException {
 		return repository.findAll();
 	}
+
+
 
 	
 

@@ -80,5 +80,16 @@ public class ToDoListController {
 	
 	}
 	
+
+	@RequestMapping(value = "/excluir",headers = {"content-type=application/json"},consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	public  Map<String,String> excluir(@Valid @RequestBody ToDo toDo){
+		try {
+			service.remover(toDo);
+			return Collections.singletonMap("retorno", "TRUE"); 
+		} catch (ToDoException e) {
+			return Collections.singletonMap("retorno", "FALSE"); 
+		}
+	}
+	
 	
 }

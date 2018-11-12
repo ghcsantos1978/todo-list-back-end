@@ -16,6 +16,7 @@ public interface ToDoService {
 	public void remover(ToDo toDo) throws ToDoException;
 	
 	public List<ToDo> listarTodos() throws ToDoException;
+
 	
 	
 }
